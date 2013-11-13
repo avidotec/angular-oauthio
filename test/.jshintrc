@@ -28,6 +28,7 @@
     "inject",
     "it",
     "expect",
-    "spyOn"
+    "spyOn",
+    "jasmine"
   ]
 }

@@ -23,13 +23,14 @@ angular.module('oauth.io', [])
         this.popup = function (method) {
           $window.OAuth.popup(method, function(error, result) {
             if(!error) {
-              if(this.handlers[method]){
+              if(provider.handlers[method]){
                 OAuthData.result = result;
-                $injector.invoke(this.handlers[method]);
+                $injector.invoke(provider.handlers[method]);
               }
             }
           });
         };
+
 
         // Initialize
         $window.OAuth.initialize(provider.publicKey);
