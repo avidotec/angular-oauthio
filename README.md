@@ -46,7 +46,7 @@ app.config(function (OAuthProvider) {
 ```
 
 This is the bare minimum. Of course you may want to attach an handler for a
-certain method:
+certain provider:
 
 ```javascript
 app.config(function(OAuthProvider) {
@@ -64,10 +64,66 @@ your handler, which allows you to do nearly everything.
 
 ## Documentation
 
+The oauth.io module contains a OAuth provider, which does the wrapping, and a
+OAuthData service, which contains the latest result from your login attempts.
 
+### OAuthProvider
+This provider can be used to setup the application with the oauth.io public key
+and to setup the handler for each authentication method you plan to use.
 
-## Examples
-_(Coming soon)_
+    ```javascript
+    OauthProvider.setPublicKey = function (key) {}
+    ```
+
+    This method allows you to provide the Public Key you can get from
+    https://oauth.io.
+
+    ```key``` should be a string (of course);
+
+    ```javascript
+    OauthProvider.setHandler = function (provider, handler) {}
+    ```
+
+    This method allows you to provide an handler for a certain authentication
+    provider.
+
+    ```provider``` should be a string, and represent the provider which you want
+    to connect.
+
+    ```handler``` should be a function which will be called once the user is
+    authenticated. Thanks to the magic of dependency injection you can use
+    whichever angular service you want inside it.
+
+### OAuth
+This service can be used to fire the popup with the authentication.
+
+    ```javascript
+    OAuth.popup = function (provider) {}
+    ```
+
+    ```provider``` should be a string, and represent the provider which you want
+    to connect.
+
+    Of course when the popup authentication has been successful the handler for
+    that provider will be called.
+
+### OauthData
+This service can be used to retrieve the results of the authentication.
+
+    ```javascript
+    Oauth.results = {}
+    ```
+
+    This object contain the results of the authentication, including access
+    tokens and whatever.
+
+    It's most useful inside an handler.
+
+## Limitations
+* There is no safety net: who know what would happen if you provide bad input?
+* Only the popup method is wrapped.
+* Handlers are defined in the config stage. This means you have to use raw
+functions or angular constants, which is weird.
 
 #License
 
