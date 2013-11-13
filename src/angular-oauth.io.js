@@ -1,18 +1,41 @@
 'use strict';
 
-angular.module('matteosuppo.angularOauth.io', [])
+angular.module('oauth.io', [])
+  .provider('OAuth', function () {
 
-  .directive('myDirective', function() {
+    this.publicKey = '';
+    this.handlers = {};
 
-    return {
-      restrict: 'EAC',
-      scope: true,
-      compile: function compile(tElement, tAttrs, transclude) {
-        tElement.html('<span>hello {{name}}</span>');
-        return function postLink(scope, iElement, iAttrs, controller) {
-          scope.name = 'world';
-        };
-      }
+    this.setPublicKey = function (key) {
+      this.publicKey = key;
     };
 
-  });
+    this.setHandler = function (method, handler) {
+      this.handlers[method] = handler;
+    };
+
+    var provider = this;
+
+    this.$get = function ($window, OAuthData, $injector) {
+      function OAuth() {
+
+        /* Display the popup and fire the callbacks */
+        this.popup = function (method) {
+          $window.OAuth.popup(method, function(error, result) {
+            if(!error) {
+              if(this.handlers[method]){
+                OAuthData.result = result;
+                $injector.invoke(this.handlers[method]);
+              }
+            }
+          });
+        };
+
+        // Initialize
+        $window.OAuth.initialize(provider.publicKey);
+      }
+
+      return new OAuth();
+    };
+  })
+  .service('OAuthData', function OAuthData() {});
