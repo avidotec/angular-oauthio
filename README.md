@@ -1,6 +1,15 @@
 # angular-oauth.io
 
+https://oauth.io/ is a service that allows you to integrate in your app a lot of
+OAuth providers, without much hassle and keeping the secret keys away from your
+code.
 
+However, it only handles the login until you get an access token, and then you
+are on your own.
+
+angular-oauth.io was born to go a step further, allowing the developer to attach
+handlers that can exploit said token, by storing it, making api calls and
+whatever they want.
 
 ## Getting Started
 
