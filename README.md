@@ -25,8 +25,46 @@ In your web page:
 <script src="dist/angular-oauth.io.min.js"></script>
 ```
 
+In your app.js file:
+
+```javascript
+var app = angular.module('yourApp', [
+  ...
+  'oauth.io',
+  ...
+]);
+```
+
+## Configuration
+
+Oauth.io needs a public key to work, and you can set it like this:
+
+```javascript
+app.config(function (OAuthProvider) {
+  OAuthProvider.setPublicKey('ABC');  // where instead of ABC you put your key
+});
+```
+
+This is the bare minimum. Of course you may want to attach an handler for a
+certain method:
+
+```javascript
+app.config(function(OAuthProvider) {
+  OAuthProvider.setHandler('facebook', function (OAuthData, $http) {
+    $http.get('https://graph.facebook.com/me?access_token=' + OAuthData.result.access_token)
+      .then(function (resp) {
+        console.log(resp);
+      });
+    });
+});
+```
+
+Note that thanks to dependency injection you have access to other services inside
+your handler, which allows you to do nearly everything.
+
 ## Documentation
-_(Coming soon)_
+
+
 
 ## Examples
 _(Coming soon)_
