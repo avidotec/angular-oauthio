@@ -17,8 +17,8 @@ whatever they want.
 * Download the [production version][min] or the [development version][max].
 
 [oauth]: https://oauth.io//auth/download/latest/oauth.min.js
-[min]: https://raw.github.com/matteosuppo/jquery-angular-oauth.io/master/dist/angular-oauth.io.min.js
-[max]: https://raw.github.com/matteosuppo/jquery-angular-oauth.io/master/dist/angular-oauth.io.js
+[min]: https://raw.github.com/matteosuppo/angular-oauthio/master/dist/angular-oauth.io.min.js
+[max]: https://raw.github.com/matteosuppo/angular-oauthio/master/dist/angular-oauth.io.js
 
 In your web page:
 
