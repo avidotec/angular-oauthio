@@ -2,8 +2,12 @@
 angular.module('oauth.io', []).provider('OAuth', function () {
   this.publicKey = '';
   this.handlers = {};
+  this.oAuthdURL = '';
   this.setPublicKey = function (key) {
     this.publicKey = key;
+  };
+  this.setOAuthdURL = function (key) {
+    this.oAuthdURL = key;
   };
   this.setHandler = function (method, handler) {
     this.handlers[method] = handler;
@@ -15,6 +19,7 @@ angular.module('oauth.io', []).provider('OAuth', function () {
     '$injector',
     function ($window, OAuthData, $injector) {
       function OAuth() {
+        /* Display the popup and fire the callbacks */
         this.popup = function (method) {
           $window.OAuth.popup(method, function (error, result) {
             if (!error) {
@@ -25,7 +30,9 @@ angular.module('oauth.io', []).provider('OAuth', function () {
             }
           });
         };
+        // Initialize
         $window.OAuth.initialize(provider.publicKey);
+        $window.OAuth.setOAuthdURL(provider.oAuthdURL);
       }
       return new OAuth();
     }
