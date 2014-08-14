@@ -84,6 +84,14 @@ https://oauth.io.
 ```key``` should be a string (of course);
 
 ```javascript
+OauthProvider.setOAuthdURL = function (key) {}
+```
+
+This method allows you to use the oauthd in your server
+
+```key``` should be a url;
+
+```javascript
 OauthProvider.setHandler = function (provider, handler) {}
 ```
 

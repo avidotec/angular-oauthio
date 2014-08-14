@@ -12,6 +12,7 @@ describe('Service OAuth.io', function () {
         handler = function () {};
         OAuthProvider.setPublicKey('public_key');
         OAuthProvider.setHandler('custom', handler);
+        OAuthProvider.setOAuthdURL('http://localhost:6284');
         provider = OAuthProvider;
       });
     });
@@ -22,6 +23,10 @@ describe('Service OAuth.io', function () {
 
     it('should allow configuration of the handlers', inject(function () {
       expect(provider.handlers.custom).toBe(handler);
+    }));
+
+    it('should allow configuration of the OAuth url', inject(function () {
+      expect(provider.oAuthdURL).toBe('http://localhost:6284');
     }));
   });
 
@@ -62,11 +67,16 @@ describe('Service OAuth.io', function () {
         $provide.value('$injector', _$injector);
         OAuthProvider.setPublicKey('public_key');
         OAuthProvider.setHandler('custom', handler.cb);
+        OAuthProvider.setOAuthdURL('http://localhost:6284');
       });
     });
 
     it('should initialize the oauth.io library with the public_key', inject(function (OAuth) {
       expect($window.OAuth.initialize).toHaveBeenCalledWith('public_key');
+    }));
+
+    it('should setOAuthdURL the oauth.io library with the url', inject(function (OAuth) {
+      expect($window.OAuth.setOAuthdURL).toHaveBeenCalledWith('http://localhost:6284');
     }));
 
     it('should expose a popup method', inject(function (OAuth) {

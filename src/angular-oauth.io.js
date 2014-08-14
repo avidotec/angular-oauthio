@@ -5,9 +5,14 @@ angular.module('oauth.io', [])
 
     this.publicKey = '';
     this.handlers = {};
+    this.oAuthdURL = '';
 
     this.setPublicKey = function (key) {
       this.publicKey = key;
+    };
+
+    this.setOAuthdURL = function (key) {
+      this.oAuthdURL = key;
     };
 
     this.setHandler = function (method, handler) {
@@ -34,6 +39,7 @@ angular.module('oauth.io', [])
 
         // Initialize
         $window.OAuth.initialize(provider.publicKey);
+        $window.OAuth.setOAuthdURL(provider.oAuthdURL);
       }
 
       return new OAuth();
